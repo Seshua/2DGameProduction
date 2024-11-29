@@ -1,28 +1,23 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private PlayerControls inputActions;
+    [SerializeField]
+    private float moveSpeed = 6f;
 
-    private void OnEnable()
-    {
-        inputActions.Enable();
-    }
 
-    private void OnDisable()
-    {
-        inputActions.Disable();
-    }
+    private Vector2 moveInput;
 
+#pragma warning disable IDE0051 // Remove unused private members
     private void Update()
+#pragma warning restore IDE0051 // Remove unused private members
     {
-        
+        transform.Translate(moveSpeed * Time.deltaTime * moveInput.x, moveSpeed * Time.deltaTime * moveInput.y, 0f);
     }
 
-    private void FixedUpdate()
+    private void OnMove(InputValue value)
     {
-        
+        moveInput = value.Get<Vector2>();
     }
-
-
 }
